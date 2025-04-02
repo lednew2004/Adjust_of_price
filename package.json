@@ -4,8 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch src/server.js",
-    "start": "node --watch frontend/script.js"
+    "dev": "node --watch frontend/script.js"
   },
   "keywords": [],
   "author": "",
