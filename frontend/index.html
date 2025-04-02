@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Preço de Fraldas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Cadastro de Fraldas</h2>
+
+    <div class="container">
+        <!-- Coluna de Fraldas Antigas -->
+        <div class="coluna">
+            <h3>Fraldas Antigas</h3>
+            <select id="marcaAntiga">
+                <option value="Mamypoko">Mamypoko</option>
+                <option value="Cremer">Cremer</option>
+                <option value="Babysec">Babysec</option>
+                <option value="Pampers">Pampers</option>
+                <option value="Piquitucho">Piquitucho</option>
+            </select>
+            <select id="tamanhoAntiga">
+                <option value="RN">RN</option>
+                <option value="P">P</option>
+                <option value="M">M</option>
+                <option value="G">G</option>
+                <option value="XG">XG</option>
+                <option value="XXG">XXG</option>
+            </select>
+            <input type="number" id="quantidadeAntiga" placeholder="Quantidade">
+            <input type="number" step="0.01" id="precoAntigo" placeholder="Preço Unitário">
+            <button onclick="adicionarFralda('Antiga')">Adicionar</button>
+        </div>
+
+        <!-- Coluna de Fraldas Novas -->
+        <div class="coluna">
+            <h3>Fraldas Novas</h3>
+            <select id="marcaNova">
+                <option value="Mamypoko">Mamypoko</option>
+                <option value="Cremer">Cremer</option>
+                <option value="Babysec">Babysec</option>
+                <option value="Pampers">Pampers</option>
+                <option value="Piquitucho">Piquitucho</option>
+            </select>
+            <select id="tamanhoNova">
+                <option value="RN">RN</option>
+                <option value="P">P</option>
+                <option value="M">M</option>
+                <option value="G">G</option>
+                <option value="XG">XG</option>
+                <option value="XXG">XXG</option>
+            </select>
+            <input type="number" id="quantidadeNova" placeholder="Quantidade">
+            <input type="number" step="0.01" id="precoNovo" placeholder="Preço Unitário">
+            <button onclick="adicionarFralda('Nova')">Adicionar</button>
+        </div>
+    </div>
+
+    <h3>Lista de Fraldas</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Marca</th>
+                <th>Tamanho</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Valor Total</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tbody id="listaFraldas"></tbody>
+    </table>
+
+    <button onclick="calcularPrecoVenda()">Calcular Preço de Venda</button>
+    <h3 id="resultado"></h3>
+
+   <script src="script.js"></script>
+
+</body>
+</html>
