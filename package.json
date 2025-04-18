@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch frontend/script.js"
+    "start": "http-server ./frontend"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +13,8 @@
   "dependencies": {
     "fastify": "^5.2.2",
     "fastify-cors": "^3.0.3"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }
