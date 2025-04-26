@@ -13,8 +13,68 @@ body {
     padding: 40px;
 }
 
+/* Botão hambúrguer */
+#menuBtn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#menuBtn.Active {
+    display: none;
+}
+
+/* Menu lateral */
+#menuLateral {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #f3f3f3;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 999;
+}
+
+#menuLateral.ativo {
+    right: 0;
+
+}
+
+.fecharMenu {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#inputBusca {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+#resultadosBusca {
+    list-style: none;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#resultadosBusca li {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+
 /* Títulos */
-h2, h3 {
+h2,
+h3 {
     color: #2c3e50;
     text-align: center;
     font-weight: 600;
@@ -45,7 +105,7 @@ h2, h3 {
 }
 
 /* Formulários */
-input[type="number"],
+input,
 select,
 button {
     width: 100%;
@@ -58,7 +118,7 @@ button {
     transition: all 0.2s ease-in-out;
 }
 
-input[type="number"]:hover,
+input:hover,
 select:hover {
     border-color: #2980b9;
     background-color: #fff;
@@ -91,7 +151,8 @@ table {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-th, td {
+th,
+td {
     border: 1px solid #dee2e6;
     padding: 14px;
     text-align: center;

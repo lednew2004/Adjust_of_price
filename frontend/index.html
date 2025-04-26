@@ -1,111 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Preço de Fraldas</title>
+    <title>Calculadora de Preço de Produtos</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+    <!-- Botão do menu hamburguer -->
+    <div id="menuBtn" onclick="toggleMenu()">☰</div>
+
+    <!-- Menu lateral -->
+    <div id="menuLateral">
+        <span onclick="toggleMenu()" class="fecharMenu">✖</span>
+        <h3>Buscar Produto</h3>
+        <input type="text" id="inputBusca" placeholder="Digite o nome..." oninput="buscarProduto()">
+        <ul id="resultadosBusca"></ul>
+    </div>
+
+
     <h2>Ajuste de preços</h2>
 
     <div class="container">
-        <!-- Coluna de Fraldas Antigas -->
+        <!-- Coluna de Produtos Antigos -->
         <div class="coluna">
-            <h3>Fraldas Antigas</h3>
-            <select id="marcaAntiga">
-                <option value="Mamypoko">Mamypoko</option>
-                <option value="Cremer">Cremer</option>
-                <option value="Babysec">Babysec</option>
-                <option value="Pampers">Pampers</option>
-                <option value="Piquitucho">Piquitucho</option>
-                <option value="Huggies">Huggies</option>
-                <option value="Hipópo">Hipópo</option>
-                <option value="Personal">Personal</option>
-                <option value="Capricho">Capricho</option>
-                <option value="Plenty">Plenty</option>
-                <option value="Liffre">Liffre</option>
-                <option value="Tena Pants">Tena Pants</option>
-                <option value="Plenitud">Plenitud</option>
-                <option value="Plenitud">Plenitud</option>
-                <option value="MasterFral">MasterFral</option>
-                <option value="Bigfral">Bigfral</option>
-                <option value="Natural Master">Natural Master</option>
-                <option value="Confort Master">Confort Master</option>
-                <option value="Sansaty">Sansaty</option>
-                <option value="Geria Max">Geria Max</option> 
-            </select>
-            <select id="tamanhoAntiga">
-                <option value="RN">RN</option>
-                <option value="P">P</option>
-                <option value="M">M</option>
-                <option value="G">G</option>
-                <option value="XG">XG</option>
-                <option value="XXG">XXG</option>
-            </select>
+            <h3>Produtos Antigos</h3>
+            <input type="text" id="nomeAntigo" placeholder="Nome do Produto">
             <input type="number" id="quantidadeAntiga" placeholder="Quantidade">
             <input type="number" step="0.01" id="precoAntigo" placeholder="Preço Unitário">
-            <button onclick="adicionarFralda('Antiga')">Adicionar</button>
+            <input type="number" step="0.01" id="descontoAntigo" placeholder="Desconto (%)">
+            <button onclick="adicionarProduto('Antiga')">Adicionar</button>
         </div>
 
-        <!-- Coluna de Fraldas Novas -->
+        <!-- Coluna de Produtos Novos -->
         <div class="coluna">
-            <h3>Fraldas Novas</h3>
-            <select id="marcaNova">
-                <option value="Mamypoko">Mamypoko</option>
-                <option value="Cremer">Cremer</option>
-                <option value="Babysec">Babysec</option>
-                <option value="Pampers">Pampers</option>
-                <option value="Piquitucho">Piquitucho</option>
-                <option value="Huggies">Huggies</option>
-                <option value="Hipópo">Hipópo</option>
-                <option value="Personal">Personal</option>
-                <option value="Capricho">Capricho</option>
-                <option value="Plenty">Plenty</option>
-                <option value="Liffre">Liffre</option>
-                <option value="Tena Pants">Tena Pants</option>
-                <option value="Plenitud">Plenitud</option>
-                <option value="Plenitud">Plenitud</option>
-                <option value="MasterFral">MasterFral</option>
-                <option value="Bigfral">Bigfral</option>
-                <option value="Natural Master">Natural Master</option>
-                <option value="Confort Master">Confort Master</option>
-                <option value="Sansaty">Sansaty</option>
-                <option value="Geria Max">Geria Max</option> 
-            </select>
-            <select id="tamanhoNova">
-                <option value="RN">RN</option>
-                <option value="P">P</option>
-                <option value="M">M</option>
-                <option value="G">G</option>
-                <option value="XG">XG</option>
-                <option value="XXG">XXG</option>
-            </select>
+            <h3>Produtos Novos</h3>
+            <input type="text" id="nomeNovo" placeholder="Nome do Produto">
             <input type="number" id="quantidadeNova" placeholder="Quantidade">
             <input type="number" step="0.01" id="precoNovo" placeholder="Preço Unitário">
-            <button onclick="adicionarFralda('Nova')">Adicionar</button>
+            <input type="number" step="0.01" id="descontoNovo" placeholder="Desconto (%)">
+            <button onclick="adicionarProduto('Nova')">Adicionar</button>
         </div>
     </div>
 
-    <h3>Lista de Fraldas</h3>
+    <h3>Lista de Produtos</h3>
     <table>
         <thead>
             <tr>
-                <th>Marca</th>
-                <th>Tamanho</th>
+                <th>Nome</th>
                 <th>Quantidade</th>
                 <th>Preço Unitário</th>
                 <th>Valor Total</th>
                 <th>Tipo</th>
             </tr>
         </thead>
-        <tbody id="listaFraldas"></tbody>
+        <tbody id="listaProdutos"></tbody>
     </table>
 
+    <input type="number" id="porcentagemLucro" placeholder="Porcentagem de lucro">
     <button onclick="calcularPrecoVenda()">Calcular Preço de Venda</button>
+
     <h3 id="resultado"></h3>
 
-   <script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
