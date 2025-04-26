@@ -13,9 +13,9 @@ app.register(fastifyCors, {
 })
 
 app.get("/produtos", async (req, res) => {
-    const { search } = req.params;
-
-    const data = database.select("produtos", search);
+    const { search } = req.query;
+    console.log(search)
+    const data = database.select("produtos", search ? { nome: search } : null);
 
     return data;
 });

@@ -42,7 +42,8 @@
             <input type="number" id="quantidadeNova" placeholder="Quantidade">
             <input type="number" step="0.01" id="precoNovo" placeholder="Preço Unitário">
             <input type="number" step="0.01" id="descontoNovo" placeholder="Desconto (%)">
-            <button onclick="adicionarProduto('Nova')">Adicionar</button>
+            <button onclick="adicionarProduto(event, 'Nova')">Adicionar</button>
+            <button onclick="salvarProduto(event)">Salvar</button>
         </div>
     </div>
 

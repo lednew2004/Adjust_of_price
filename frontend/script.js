@@ -11,7 +11,7 @@ async function buscarProduto() {
     const resultados = document.getElementById("resultadosBusca");
     resultados.innerHTML = "";
 
-    const response = await fetch("http://localhost:5050/produtos");
+    const response = await fetch(`http://localhost:5050/produtos?search=${termo}`);
     const data = await response.json()
 
     data.forEach(prod => {
@@ -20,26 +20,28 @@ async function buscarProduto() {
         resultados.appendChild(item);
     })
 
-    //loadingInput()
+    loadingInput()
 }
 
 function loadingInput() {
     const liItens = document.querySelectorAll("#resultadosBusca li");
 
     liItens.forEach(li => {
-        li.addEventListener("click", () => {
+        li.addEventListener("click", async () => {
             const text = li.textContent
             const arrayOfLi = text.split(" ")
-            console.log(arrayOfLi)
-            let nome = document.getElementById('nomeAntigo');
-            let quantidade = document.getElementById('quantidadeAntiga');
-            let preco = document.getElementById('precoAntigo');
-            let desconto = document.getElementById('descontoAntigo');
 
-            nome.value = arrayOfLi[0]
-            quantidade.value = arrayOfLi[2]
-            preco.value = arrayOfLi[6]
-            desconto.value = arrayOfLi[7]
+
+            const response = await fetch(`http://localhost:5050/produtos?search=${arrayOfLi[0]}`);
+            const [data] = await response.json()
+
+            console.log(data)
+            document.getElementById('nomeAntigo').value = data.nome;
+            document.getElementById('quantidadeAntiga').value = data.quantidade;
+            document.getElementById('precoAntigo').value = data.preco;
+            document.getElementById('descontoAntigo').value = data.desconto;
+
+
 
         })
 
@@ -52,8 +54,6 @@ async function adicionarProduto(tipo) {
     let preco = parseFloat(document.getElementById(tipo === 'Antiga' ? 'precoAntigo' : 'precoNovo').value);
     let desconto = parseFloat(document.getElementById(tipo === 'Antiga' ? 'descontoAntigo' : 'descontoNovo').value);
 
-    //requisitarDb(tipo, nome, quantidade, preco, desconto)
-
     if (nome && quantidade > 0 && preco > 0) {
         // Se o desconto for um número válido, aplica o desconto
         if (!isNaN(desconto) && desconto > 0) {
@@ -62,28 +62,43 @@ async function adicionarProduto(tipo) {
 
         let tipoProduto = tipo === 'Antiga' ? 'Estoque Antigo' : 'Estoque Novo';
         produtos.push({ nome, quantidade, preco, tipo: tipoProduto });
+        localStorage.setItem('produtos', JSON.stringify(produtos));
         atualizarTabela();
     }
 }
 
+async function salvarProduto(evnt) {
+    evnt.preventDefault()
+    let nome = document.getElementById('nomeNovo').value;
+    let quantidade = parseInt(document.getElementById('quantidadeNova').value);
+    let preco = parseFloat(document.getElementById('precoNovo').value);
+    let desconto = parseFloat(document.getElementById('descontoNovo').value);
+
+    await fetch("http://localhost:5050/produtos", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nome, quantidade, preco, desconto
+        })
+    })
+}
+
 async function requisitarDb(tipo, nome, quantidade, preco, desconto) {
     if (tipo === "Nova") {
-        await fetch("http://localhost:5050/produtos", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nome, quantidade, preco, desconto
-            })
-        })
     }
 }
 
 function atualizarTabela() {
     let tabela = document.getElementById("listaProdutos");
     tabela.innerHTML = "";
-    produtos.forEach(produto => {
+    const produtosLocalStorage = JSON.parse(localStorage.getItem("produtos"));
+
+    if (!produtosLocalStorage) {
+        return
+    }
+    produtosLocalStorage.forEach(produto => {
         let row = `<tr>
                     <td>${produto.nome}</td>
                     <td>${produto.quantidade}</td>
@@ -94,6 +109,8 @@ function atualizarTabela() {
         tabela.innerHTML += row;
     });
 }
+
+atualizarTabela()
 
 function calcularPrecoVenda() {
     let custoTotal = 0;
@@ -117,3 +134,12 @@ function calcularPrecoVenda() {
         document.getElementById("resultado").innerText = "Adicione produtos e informe a porcentagem.";
     }
 }
+
+
+function clearLocalStorage() {
+    window.addEventListener('load', () => {
+        localStorage.clear("produtos")
+    })
+}
+
+clearLocalStorage()
