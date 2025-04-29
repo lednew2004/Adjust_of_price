@@ -46,4 +46,15 @@ export class Database {
         }
         return data
     }
+
+    update(table, nome, data) {
+        const findRow = this.#database[table].findIndex(row => {
+            return row.nome.toLowerCase() === nome.toLowerCase();
+        })
+
+        if (findRow > -1) {
+            this.#database[table][findRow] = { nome, ...data }
+            this.#persist()
+        }
+    }
 }

@@ -67,8 +67,7 @@ async function adicionarProduto(tipo) {
     }
 }
 
-async function salvarProduto(evnt) {
-    evnt.preventDefault()
+async function salvarProduto() {
     let nome = document.getElementById('nomeNovo').value;
     let quantidade = parseInt(document.getElementById('quantidadeNova').value);
     let preco = parseFloat(document.getElementById('precoNovo').value);
@@ -85,10 +84,7 @@ async function salvarProduto(evnt) {
     })
 }
 
-async function requisitarDb(tipo, nome, quantidade, preco, desconto) {
-    if (tipo === "Nova") {
-    }
-}
+
 
 function atualizarTabela() {
     let tabela = document.getElementById("listaProdutos");
@@ -100,12 +96,12 @@ function atualizarTabela() {
     }
     produtosLocalStorage.forEach(produto => {
         let row = `<tr>
-                    <td>${produto.nome}</td>
-                    <td>${produto.quantidade}</td>
-                    <td>R$ ${produto.preco.toFixed(2)}</td>
-                    <td>R$ ${(produto.preco * produto.quantidade).toFixed(2)}</td>
-                    <td>${produto.tipo}</td>
-                  </tr>`;
+        <td>${produto.nome}</td>
+        <td>${produto.quantidade}</td>
+        <td>R$ ${produto.preco.toFixed(2)}</td>
+        <td>R$ ${(produto.preco * produto.quantidade).toFixed(2)}</td>
+        <td>${produto.tipo}</td>
+        </tr>`;
         tabela.innerHTML += row;
     });
 }
@@ -116,7 +112,13 @@ function calcularPrecoVenda() {
     let custoTotal = 0;
     let quantidadeTotal = 0;
 
-    produtos.forEach(produto => {
+    const produtosLocalStorage = JSON.parse(localStorage.getItem("produtos"));
+
+    if (!produtosLocalStorage) {
+        document.getElementById("resultado").innerText = "Adicione produtos e informe a porcentagem.";
+        return
+    }
+    produtosLocalStorage.forEach(produto => {
         custoTotal += produto.quantidade * produto.preco;
         quantidadeTotal += produto.quantidade;
     });
@@ -137,9 +139,8 @@ function calcularPrecoVenda() {
 
 
 function clearLocalStorage() {
-    window.addEventListener('load', () => {
-        localStorage.clear("produtos")
-    })
+    localStorage.clear("produtos")
+    atualizarTabela()
 }
 
-clearLocalStorage()
+document.getElementById("clearTable").addEventListener("click", clearLocalStorage)
