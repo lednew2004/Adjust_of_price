@@ -30,7 +30,7 @@ app.post("/produtos", async (req, res) => {
     const response = await fetch(`https://adjust-of-price-database.onrender.com/produtos?search=${nome}`);
     const [data] = await response.json()
 
-    if (data.nome.toLowerCase() === nome.toLowerCase()) {
+    if (data && data.nome.toLowerCase() === nome.toLowerCase()) {
         await fetch(`https://adjust-of-price-database.onrender.com/produtos/${nome}`, {
             method: "PUT",
             headers: {
