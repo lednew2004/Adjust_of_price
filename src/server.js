@@ -27,11 +27,11 @@ app.get("/produtos", async (req, res) => {
 app.post("/produtos", async (req, res) => {
     const { nome, quantidade, preco, desconto } = req.body;
 
-    const response = await fetch(`http://localhost:5050/produtos?search=${nome}`);
+    const response = await fetch(`https://adjust-of-price-database.onrender.com/produtos?search=${nome}`);
     const [data] = await response.json()
 
     if (data.nome.toLowerCase() === nome.toLowerCase()) {
-        await fetch(`http://localhost:5050/produtos/${nome}`, {
+        await fetch(`https://adjust-of-price-database.onrender.com/produtos/${nome}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
