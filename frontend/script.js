@@ -11,7 +11,7 @@ async function buscarProduto() {
     const resultados = document.getElementById("resultadosBusca");
     resultados.innerHTML = "";
 
-    const response = await fetch(`http://localhost:5050/produtos?search=${termo}`);
+    const response = await fetch(`https://adjust-of-price-database.onrender.com/produtos?search=${termo}`);
     const data = await response.json()
 
     data.forEach(prod => {
@@ -32,7 +32,7 @@ function loadingInput() {
             const arrayOfLi = text.split(" ")
 
 
-            const response = await fetch(`http://localhost:5050/produtos?search=${arrayOfLi[0]}`);
+            const response = await fetch(`https://adjust-of-price-database.onrender.com/produtos?search=${arrayOfLi[0]}`);
             const [data] = await response.json()
 
             console.log(data)
@@ -73,7 +73,7 @@ async function salvarProduto() {
     let preco = parseFloat(document.getElementById('precoNovo').value);
     let desconto = parseFloat(document.getElementById('descontoNovo').value);
 
-    await fetch("http://localhost:5050/produtos", {
+    await fetch("https://adjust-of-price-database.onrender.com/produtos", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
